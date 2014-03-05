@@ -9,7 +9,6 @@ def autoRelate(idea1, idea2):
 
 
 	#Dumb mockup comparison
-	rel=None
 
 	i1Cs=idea1.rsplit()
 	i2Cs=idea2.rsplit()
@@ -20,40 +19,45 @@ def autoRelate(idea1, idea2):
 			if i1==i2:
 				score+=1
 	score/=(len(i1Cs)*len(i2Cs)*1.0)
-	return (score,rel);
+
+
+	rel=Edge(None,idea2,score)
+	return rel
 
 
 #args: @idea string, @ideas array of ideas to search, @max int max number of results
 #returns: type (score,annotation); sorted array of related ideas and relations 
-def getRelatedIdeas(idea, ideas,max=None):
+def getRelatedIdeas(idea, max=None):
 	#todo 
 	rels=map(lambda i2: autoRelate(idea,i2),ideas)
-	rels=sorted(rels)
+	rels=sorted(rels,key=lambda edge: edge.weight,reverse=True)
 	return rels
 
 
 class Node:
-	val
-	connections = []
-	def addConnection(c):
-		connections.append(c)
+	# val
+	# connections = []
+	def addConnection(self,c):
+		self.connections.append(c)
 
-	__init__(self,val=None):
+	def __init__(self,val=None):
 		self.val=val
+		self.connections = []
 
-	def __string__(self):
+	def __str__(self):
 		return self.val
 
 class Edge:
-	val
-	target
+	# val
+	# target
 
-	__init__(self,val,target):
+	def __init__(self,val,target,weight=0):
 		self.val=val
 		self.target=target
+		self.weight = weight
 
-	def __string__(self):
-		return self.val
+	def __str__(self):
+		return "<"+str((self.weight,self.val))+">"+str(self.target)
 
 if __name__ == "__main__":
 	# build semantic network
@@ -68,8 +72,10 @@ if __name__ == "__main__":
 	# test
 	idea1 = "facebook for cats"
 	idea2 = "facebook for dogs"
-	print autoRelate(idea1,idea2)
+	print "autoRelate('" + idea1 + "','"+idea2+"') = ",autoRelate(idea1,idea2)
 
 
 	ideaQuery = "facebook for parrots"
-	print getRelatedIdeas(ideaQuery)
+	print "getRelatedIdeas('"+ideaQuery+"') = "
+	for i in getRelatedIdeas(ideaQuery):
+		print i
