@@ -1,0 +1,95 @@
+#Our entire project is to build this method
+#Args: Process idea1, Process idea2
+#Returns Process (relation)
+# this will be model2 -- with processes and graphs that contain only edges
+def relate(idea1, idea2):
+	#todo
+	# extract concepts
+	# pairwise numerical comparison of concepts
+	# return sum of top 5 relations as score
+
+	rel=Process();
+	return rel;
+
+
+def autoRelate(idea1, idea2):
+	#todo
+	# extract concepts
+	# pairwise numerical comparison of concepts
+	# return sum of top 5 relations as score
+
+
+	#Dumb mockup comparison
+	rel=None
+
+	i1Cs=idea1.rsplit()
+	i2Cs=idea2.rsplit()
+
+	score=0
+	for i1 in i1Cs:
+		for i2 in i2Cs:
+			if i1==i2:
+				score+=1
+	score/=(len(i1Cs)*len(i2Cs)*1.0)
+	return (score,rel);
+
+
+#args: @idea string, @ideas array of ideas to search, @max int max number of results
+#returns: type (score,annotation); sorted array of related ideas and relations 
+def getRelatedIdeas(idea, ideas,max=None):
+	#todo 
+	rels=map(lambda i2: autoRelate(idea,i2),ideas)
+	rels=sorted(rels)
+	return rels
+
+class Process:
+	inp,outp #type Process
+	relation #type function Process -> Process
+
+	__init__(self,inp=None,outp=None,relation=None):
+		self.inp=inp
+		self.outp=outp
+		
+		#if relation is a string, return that string
+		if(isinstance(relation,basestring))
+			relation=lambda inp: f(inp)
+		self.relation=relation
+
+class Node:
+	val
+	connections = []
+	def addConnection(c):
+		connections.append(c)
+
+	__init__(self,val=None):
+		self.val=val
+
+class Edge:
+	val
+	target
+
+	__init__(self,val,target):
+		self.val=val
+		self.target=target
+
+if __name__ == "__main__":
+	# build semantic network
+	cat=Node("cat")
+	dog=Node("dog")
+	animal=Node("animal")
+	cat.addConnection(Edge('isA',animal))
+	dog.addConnection(Edge('isA',animal))
+	facebook = Node('facebook')
+	
+
+	# test
+	idea1 = "facebook for cats"
+	idea2 = "facebook for dogs"
+	print autoRelate(idea1,idea2)
+
+
+	ideaQuery = "facebook for parrots"
+
+
+#kiran's notes
+#type Structure = I | O | T (* where I is input of type (i1 * i2 * i3 * i4 * ..), O is (o1 * o2 * o3 * o4 * …), T : None -> Label 

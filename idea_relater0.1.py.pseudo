@@ -1,0 +1,16 @@
+#Our entire project is to build this method
+#Args: idea1, idea2
+# this will be model2 -- with processes and graphs that contain only edges
+def Process relate(Process idea1, Process idea2):
+	#todo
+	return 
+
+
+class Process:
+	Process source,target
+	MathematicalStructure relation #function ? no
+	
+
+
+
+type Structure = I | O | T (* where I is input of type (i1 * i2 * i3 * i4 * ..), O is (o1 * o2 * o3 * o4 * …), T : None -> Label 
