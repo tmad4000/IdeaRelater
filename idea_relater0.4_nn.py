@@ -13,15 +13,18 @@ def autoRelate(idea1, idea2):
 	i1Cs=idea1.rsplit()
 	i2Cs=idea2.rsplit()
 
+	ptsOfTan=[]
+
 	score=0
 	for i1 in i1Cs:
 		for i2 in i2Cs:
 			if i1==i2:
 				score+=1
+				ptsOfTan.append(i1)
 	score/=(len(i1Cs)*len(i2Cs)*1.0)
 
 
-	rel=Edge(None,idea2,score)
+	rel=Edge(ptsOfTan,idea2,score)
 	return rel
 
 

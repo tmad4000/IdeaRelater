@@ -13,15 +13,18 @@ def autoRelate(idea1, idea2):
 	i1Cs=idea1.rsplit()
 	i2Cs=idea2.rsplit()
 
+	ptsOfTan=[]
+
 	score=0
 	for i1 in i1Cs:
 		for i2 in i2Cs:
 			if i1==i2:
 				score+=1
+				ptsOfTan.append(i1)
 	score/=(len(i1Cs)*len(i2Cs)*1.0)
 
 
-	rel=Edge(None,idea2,score)
+	rel=Edge(ptsOfTan,idea2,score)
 	return rel
 
 
@@ -47,6 +50,46 @@ class Node:
 	def __str__(self):
 		return self.val
 
+class Node:
+	# val
+	# connections = []
+	def addConnection(self,c):
+		self.connections.append(c)
+
+	def takeAction(self):
+		if(self.o)
+			connections.filter("respBy").open();
+
+	def __init__(self,val=None):
+		self.val=val
+		self.connections = []
+
+	def __str__(self):
+		return self.val
+
+	def open(self):
+		self.o=True
+
+	def close(self):
+		self.o=False
+
+class TurnSubG(Node):
+
+	def __init__(self,val=None,turnLG=None,turnRG=None):
+		super(TurnSubG, self).__init__()
+		self.turnLG=turnLG
+		self.turnRG=turnRG
+
+	def takeAction(self):
+		if(self.o)
+			if(math.random()>.5)
+				self.turnLG.open()
+			else
+				self.turnRG.open()
+
+class TurnSubG(Node):
+	
+
 class Edge:
 	# val
 	# target
@@ -67,6 +110,20 @@ if __name__ == "__main__":
 	ideas['cat'].addConnection(Edge('isA',ideas['animal']))
 	ideas['dog'].addConnection(Edge('isA',ideas['animal']))
 	ideas['facebook'] = Node('facebook')
+
+
+	# build semantic network
+	ideas['touchG']=Node("touchG")
+	ideas['turnLG']=Node("turnLG")
+	ideas['turnRG']=Node("turnRG")
+	ideas['turnSubG']=Node("turnSubG")
+
+	ideas['turnSubG'].addConnection(Edge('respBy',ideas['turnRG']))
+	ideas['cat'].addConnection(Edge('isA',ideas['animal']))
+	ideas['cat'].addConnection(Edge('isA',ideas['animal']))
+	ideas['dog'].addConnection(Edge('isA',ideas['animal']))
+	ideas['facebook'] = Node('facebook')
+
 
 
 	# test

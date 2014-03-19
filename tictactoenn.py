@@ -1,3 +1,4 @@
+import random
 ideas={}
 
 
@@ -13,15 +14,18 @@ def autoRelate(idea1, idea2):
 	i1Cs=idea1.rsplit()
 	i2Cs=idea2.rsplit()
 
+	ptsOfTan=[]
+
 	score=0
 	for i1 in i1Cs:
 		for i2 in i2Cs:
 			if i1==i2:
 				score+=1
+				ptsOfTan.append(i1)
 	score/=(len(i1Cs)*len(i2Cs)*1.0)
 
 
-	rel=Edge(None,idea2,score)
+	rel=Edge(ptsOfTan,idea2,score)
 	return rel
 
 
@@ -57,8 +61,13 @@ class Edge:
 		self.weight = weight
 
 	def __str__(self):
+
 		return "<"+str((self.weight,self.val))+">"+str(self.target)
 
+class Neuron:
+    w=[0 for i in range(10)]
+    #w=[random.random() for i in range(10)]
+    
 if __name__ == "__main__":
 	# build semantic network
 	ideas['cat']=Node("cat")
