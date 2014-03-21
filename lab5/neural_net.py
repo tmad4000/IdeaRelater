@@ -229,9 +229,9 @@ class Neuron(DifferentiableElement):
             #d(y_D)/dz = y_D*(1-y_D) and dz/dw = w_BD*(d(y_B)/dw) + w_CD*(d(y_C)/dw) + w_D*(d(-1)/dw).
 
             dzdw=0
-            for w in self.my_weights:
+            for j,w in enumerate(self.my_weights):
                 if self.isa_descendant_weight_of(elem,w):
-                    dzdw+=w.get_value()*w.get_input().dOutdX(w)
+                    dzdw+=w.get_value()*self.my_inputs[j].dOutdX(w)
             return dzdw
         #d(y_D)/d(w) = d(y_D)/dz * dz/dw.
 
@@ -372,6 +372,10 @@ def make_neural_net_basic():
     i1 = Input('i1', 0.0)
     i2 = Input('i2', 0.0)
 
+    # i0 = Input('i0', -1.0) # this input is immutable
+    # i1 = Input('i1', 0.0)
+    # i2 = Input('i2', 0.0)
+
     w1A = Weight('w1A', 1)
     w2A = Weight('w2A', 1)
     wA  = Weight('wA', 1)
@@ -393,13 +397,49 @@ def make_neural_net_two_layer():
     weights, and neurons.
     """
 
-#     seed_random()
+    seed_random()
 
-# wt = random_weight()
-# ...use wt...
-# wt2 = random_weight()
-# ...use wt2...
-    raise NotImplementedError, "Implement me!"
+    # wt = 
+    # ...use wt...
+    # wt2 = random_weight()
+    # ...use wt2...
+
+    i0 = Input('i0', -1.0) # this input is immutable
+    i1 = Input('i1', 0.0)
+    i2 = Input('i2', 0.0)
+
+    w1A = Weight('w1A', random_weight())
+    w2A = Weight('w2A', random_weight())
+    wA  = Weight('wA', random_weight())
+    # Inputs must be in the same order as their associated weights
+    A = Neuron('A', [i1,i2,i0], [w1A,w2A,wA])
+
+
+
+    w1B = Weight('w1B', random_weight())
+    w2B = Weight('w2B', random_weight())
+    wB  = Weight('wB', random_weight())
+    # Inputs must be in the sBme order Bs their BssociBted weights
+    B = Neuron('B', [i1,i2,i0], [w1B,w2B,wB])
+
+
+
+
+    wAC = Weight('wAC', random_weight())
+    wBC = Weight('wBC', random_weight())
+    wC  = Weight('wC', random_weight())
+    # Inputs must Ce in the sCme order Cs their CssociCted weights
+    C = Neuron('C', [A,B,i0], [wAC,wBC,wC])
+
+
+
+    P = PerformanceElem(C, 0.0)
+
+    net = Network(P,[A,B,C])
+    return net
+
+
+    # raise NotImplementedError, "Implement me!"
 
 def make_neural_net_challenging():
     """
