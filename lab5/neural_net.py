@@ -392,6 +392,13 @@ def make_neural_net_two_layer():
     See 'make_neural_net_basic' for required naming convention for inputs,
     weights, and neurons.
     """
+
+#     seed_random()
+
+# wt = random_weight()
+# ...use wt...
+# wt2 = random_weight()
+# ...use wt2...
     raise NotImplementedError, "Implement me!"
 
 def make_neural_net_challenging():
